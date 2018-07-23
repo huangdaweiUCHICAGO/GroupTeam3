@@ -5,6 +5,7 @@ import time
 # Each scene has one variable name, and three functions: enter(), action(), and exit_scene(). 
 # Read through the ones given, feel free to add more using the same template I've given you.
 # Change, edit, or completely remove the scenes I gave you. Up to you.
+import random
 class Scene(object):
 
     def enter(self):
@@ -93,22 +94,26 @@ class OWeek(Scene):
                "is ignored and waits for you patientily, as if you were to ever respond.\n It's 12 am, and you're studying for your math class"
                "Mario calls and  you reject his call. He calls again-- reject. Calls-- you hangs up.\n Call after call, DM after DM, you go back to "
                "your math. Finally, annoyed, you tell Mario he doesn't deserve your friendship.\n Seems like you won't be getting many more calls from him.")
-        return self.exit_scene('Relationship')
+        return self.exit_scene('death')
 
         elif int(choice) == 3:
         print(
               "So is this path you really want to take-- the one where you sexually harass and innocent girl, and kiss here against her will. Need I"
               "say more.\n NEED I SAY MORE!")
+        return self.exit_scene('death')
+
         elif int(choice) == 4:
 
         print(
             "You decide to go to both functions, attending the latter (the party) after going to your friends house. It is there that you play a couple video games."
             "You hang out with him and understand why he was such a good friend-- and maybe a bit more. He's a good guy and you've grown attached to him. It's and odd thing, really."
-            "So, you, decide to stay a bit longer... and longer... and longer\n The hours go by, and suddenly you realize that "
-    )
+            "So, you, decide to stay a bit longer... and longer... and longer\n The hours go by, and suddenly you realize that-- perhaps-- that party wasn't meant for you."
+            "But you know someone who is.\n There it is; you found yourself a boyfriend-- a checkpoint of your college career. This has made you happy.")
+        return self.exit_scene('Relationship')
+
 
         else:
-        print ("DOES NOT COMPUTE! Choose an option or type :q to end game") # raise ValueError ('todo')
+        print ("DOES NOT COMPUTE! Choose an option or type :q to end game")
         return self.exit_scene(self.name)
 
     def exit_scene(self, outcome):
@@ -119,7 +124,7 @@ class Relationship(Scene):
     name = 'Relationship'
 
     def enter(self):
-        print ("It's been a couple months, and suddenly it seems you're happy. You have a loving girlfriend and satisfactory confidence"
+        print ("It's been a couple months, and suddenly it seems you're happy. You have a loving boyfriend and satisfactory confidence"
                "There is still something, however, that is holding you back, and you need to get rid of it. It's almost as if you're happiness"
                "is a mere facade.\n There lie a couple options to change the stagnancy your life has fallen into, but will you take them.\n")
         time.sleep(3)
@@ -138,16 +143,20 @@ class Relationship(Scene):
             print("Too sad, so bad...")
             return self.exit_scene('death')
 
-
 class Breakup(Scene):
     name = "Breakup"
     def enter(self):
         print("Oh, it's the time to do it. YOU FOUND YOUR PROBLEM. ")
-
-    def action(self):
-        print ("There's a keypad lock on the box")
+        print("However, you are gambling with the devil. You ultimately don't know how this will affect your results socially"
+              "Whether you still have friends after breaking up with your boyfriend is pretty much decided by the fate of a flip of a coin"
+              "You have a 5 chances. In only 2 of those instances will you say the right words to stay friends and not ruin your social life.")
         print()
-        code = [randint(0,9), randint(0,9), randint(0,9)]
+        print("This will be represented by the guessing of two numbers from 1-10. If you manage two guess those two numbers, then you will be fine"
+              "If you don't, however, this will signify the termination of your social life for the remaining of your high school career.\n Guess Wisely!")
+    def action(self):
+        print ("What are those two numbers")
+        print()
+        code = [randint(1,11), randint(1,11), randint(1,11)]
         guesses = 0
         # loop to check three random integers, one at a time
         for i in range(3):
@@ -160,8 +169,8 @@ class Breakup(Scene):
             except ValueError:
                print("That's not an int!")
                return self.exit_scene(self.name)
-            while int(guess) != code[i] and guesses <10:
-                print ("BZZZZEDDD!")
+            while int(guess) != code[i] and guesses <= 5:
+                print ("Hmmm, that is incorrect. He is getting madder.")
                 guesses += 1
                 guess =input("[keypad]> ")
                 if guess == ':q':
@@ -172,14 +181,16 @@ class Breakup(Scene):
                    print("That's not an int!")
                    guess = -1
 
-        if guesses < 10:
-            print ("The container clicks open and the seal breaks, letting gas out.")
-            print()
+        if guesses < 5:
+            print ("Luckily for you, the numbers that were guessed are correct. This has just saved your college social career. GREAT! You still have friends"
+                   "But there is still much much much...... much more to come :/")
             return self.exit_scene('public_scorn')
         else:
-            print ("The lock buzzes one last time and then you hear a sickening")
+            print ("It seems like it was impossible to get out of this one....")
             print()
-            return self.exit_scene('death') # raise ValueError ('todo')
+            time.sleep(4)
+            print("Sorry to inform you, but you just committed social suicide by breaking up with the most popular boy in college. RIP.. you tried.")
+            return self.exit_scene('death')
 
     def exit_scene(self, outcome):
         return outcome
@@ -187,56 +198,47 @@ class PublicScorn(Scene):
     name ='public_scorn'
 
     def enter(self):
-        print("I am really really sad because certain parts of this won't work.")
+        print("Okay, so things went rather quite smoothly after you found a way to stay friends with your ex, but it seems like your bad social skills haven't let"
+              "you down in other ways. For one, many people who are not your ex-boyfriend spread rumors that you were quite abusive-- which was obviously not the case"
+              "Moreover, it seems like you haven't been the nicest person around campus. Your illuminate an aura of condescencdence, as you walk through the quad."
+              "You begin to notice that people are talking behind your back, and in a sense, you deserve it. As a result, you must find a way to fix this, but how?")
         return self.action
 
-    @property
     def action(self):
-        print("What will you do? How will you regain the commendation of you and your peers. Will you 1) try to gain a new girlfriend or 2)")
+        print("There has to be a way to regain your social status. You have just now hear rumors that your boyfriend, despite your best efforts, has been very shady.")
+        print("The sources telling you he's criticizing you behind your back are not credible at best, but you are in desperate need for some liveliness in your life-- some drama")
+        time.sleep(4)
+        print("What will you do? How will you regain the commendation of you and your peers. Will you 1) try to gain a new boyfriend or girlfriend, or fight your old "
+              "boyfriend for 2)")
         print()
-        time.sleep (4)
+        time.sleep (2)
         print("The fate of your college career-- your future and your relationships rests on it.")
         print()
         choice = input("> ")
 
         if int(choice) == 1:
-            print("Okay, so you are searching for friends, but of course, you're interpersonal skills really suck and you are prone to errors.")
+            print("Okay, so you are searching for a significant other, but of course, you're interpersonal skills really suck and you are prone to errors.")
             print()
-            print("As a result, you can only speak and socialize with a limited number of people and you mess up beyond repair")
-            print("")
+            print("As a result, you can only speak and socialize with a limited number of people and you mess up beyond repair.\n ")
+            print("However, you must speak to people you already have a general knowledge of.")
+            time.sleep(5)
+            print("....")
+            print()
+            print()
+            print("Shoot... you're bad with names\nYour task is to do just that. Guessing the name correctly will allow you to move on with your quest.")
             time.sleep(5)
 
-            codes = [randint(0, 9), randint(0, 9), randint(0, 9)]
-            guesses = 0
-            # loop to check three random integers, one at a time
-            for i in range(3):
-                print("Enter digit %d." % (i + 1))
-                guess = input("[keypad]> ")
-                if guess == ':q':
-                    return self.exit_scene(guess)
-                try:
-                    guess = int(guess)
-                except ValueError:
-                    print("That's not an int!")
-                    return self.exit_scene(self.name)
-                while int(guess) != codes[i] and guesses < 10:
-                    print("BZZZZEDDD!")
-                    guesses += 1
-                    guess = input("[keypad]> ")
-                    if guess == ':q':
-                        return self.exit_scene(guess)
-                    try:
-                        guess = int(guess)
-                    except ValueError:
-                        print("That's not an int!")
-                        guess = -1
 
-            if guesses < 10:
-                print("The container clicks open and the seal breaks, letting gas out.")
-                print()
+            Names = ["Marla", "Alma", "Gabby", "Davonna", "Cynthia", "Nikki"]
+            print("The names possible are Marla, Alma, Gabby, Davonna, Cynthia, and Nikki")
+            Guess =input("What is her name? You have one chance.")
+            Word = random.choice(Names)
+
+            if Guess == Word:
+                print("Wow you did it! Time to move one to your 4th year, with your new SO", Word)
                 return self.exit_scene('Finish')
             else:
-                print("The lock buzzes one last time and then you hear a sickening")
+                print("Unfortunately, that is incorrect. Now you will be ridiculed for getting the name wrong.")
                 print()
                 return self.exit_scene('death')
 
