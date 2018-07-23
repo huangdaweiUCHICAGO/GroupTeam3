@@ -214,9 +214,9 @@ class PublicScorn(Scene):
         time.sleep (2)
         print("The fate of your college career-- your future and your relationships rests on it.")
         print()
-        choice = input("> ")
+        chosen = input("> ")
 
-        if int(choice) == 1:
+        if int(chosen) == 1:
             print("Okay, so you are searching for a significant other, but of course, you're interpersonal skills really suck and you are prone to errors.")
             print()
             print("As a result, you can only speak and socialize with a limited number of people and you mess up beyond repair.\n ")
@@ -241,42 +241,24 @@ class PublicScorn(Scene):
                 print("Unfortunately, that is incorrect. Now you will be ridiculed for getting the name wrong.")
                 print()
                 return self.exit_scene('death')
+        elif chosen == 2:
+            print("Okay, I guess you're beating up your ex-boyfriend.\n Here's how it's gonna go; there are 3 fighting words you will have to scream before going and "
+                  "hitting him. Only 1 of these words will lead to victory.")
 
+            Fight = ["Hooga", "Mooga", "Tooga", "FU", "Let's go", "I'm scared"]
+            print("The words are Hooga, Mooga, Tooga, FU, Let's go, or I'm scared")
+            Guessing  =input("What is her name? You have one chance.")
+            Fighting_Word = random.choice(Fight)
+
+            if Guessing == Fighting_Word:
+                print("Wow you did it! You won the game and have gained back your status.", Fighting_Word)
+                return self.exit_scene('Finish')
+            else:
+                print("Unfortunately, that is incorrect. This leads to you losing and dropping out-- degreeless.")
+                print()
+                return self.exit_scene('death')
         return self.action
 
     def exit_scene(self, outcome):
         return self.action
 
-
-class Finish(Scene):
-
-    name = 'Finish'
-
-    def enter(self):
-        return self.action()
-
-
-    def action(self):
-        print ("There's 5 pods, which one do you take?")
-        good_pod = randint(1,5)
-        guess = input("[pod #]> ")
-
-        if guess == ':q':
-            return self.exit_scene(guess)
-        try:
-           guess = int(guess)
-        except ValueError:
-           print("That's not an int!")
-           return self.exit_scene(self.name)
-
-        if int(guess) != good_pod:
-            print ("You jump into pod %s and hit the eject button."% guess)
-            print()
-            return self.exit_scene('death')
-        else:
-            print ("You jump into pod %s and hit the eject button."% guess)
-            print()
-            return self.exit_scene('finished')
-
-    def exit_scene(self, outcome):
-        return outcome
